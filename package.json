@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "class-validator": "^0.13.2"
+  }
+}
