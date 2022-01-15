@@ -9,13 +9,19 @@
   },
   "dependencies": {
     "@chakra-ui/core": "^0.5.2",
+    "@chakra-ui/icons": "^1.1.1",
+    "@chakra-ui/system": "^1.9.1",
     "@emotion/core": "^10.0.27",
+    "@emotion/react": "^11.7.1",
     "@emotion/styled": "^10.0.27",
+    "@popperjs/core": "^2.11.2",
     "emotion-theming": "^10.0.27",
     "formik": "^2.1.5",
+    "graphql": "^16.2.0",
     "next": "^9.1.7",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "urql": "^2.0.6",
     "yarn.lock": "^0.0.1-security"
   },
   "devDependencies": {
