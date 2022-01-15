@@ -2,6 +2,7 @@ import { ThemeProvider, CSSReset, ColorModeProvider } from '@chakra-ui/core'
 import theme from '../theme'
 import { Provider } from 'urql'
 import { createClient } from '@urql/core'
+import { Navbar } from '../components/Navbar'
 
 const client = createClient({
   url: 'http://localhost:4000/graphql',

@@ -12,7 +12,6 @@ import redis from "redis";
 import session from "express-session";
 import connectRedis from "connect-redis";
 import cors from "cors";
-import { EntityManager } from "@mikro-orm/postgresql";
 
 const main = async () => {
   const orm = await MikroORM.init(microConfig);
