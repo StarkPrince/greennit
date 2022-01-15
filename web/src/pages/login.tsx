@@ -1,14 +1,13 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import { Box, Button, Heading, SimpleGrid, VisuallyHidden } from "@chakra-ui/core";
+import { Button, Heading, Stack } from "@chakra-ui/core";
 import { Wrapper } from "../components/Wrapper";
 import { InputField } from "../components/InputField";
 import { useLoginMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
 import { useRouter } from "next/router";
 import { CMode } from "../components/CMode";
-import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa'
-import { SimplGrid } from "../components/SimplGrid";
+import { OAuth } from "../components/OAuth";
 
 interface loginProps { }
 
@@ -36,25 +35,27 @@ const Login: React.FC<loginProps> = ({ }) =>
                         <Heading mb={6}>Login
                             <CMode />
                         </Heading>
-                        <InputField
-                            name="username"
-                            placeholder="username"
-                            label="Username"
-                        />
-                        <Box mt={4}>
+                        <Stack spacing="6">
+                            <InputField
+                                name="username"
+                                placeholder="username"
+                                label="Username"
+                            />
                             <InputField
                                 name="password"
                                 placeholder="password"
                                 label="Password"
                                 type="password"
                             />
-                        </Box>
-                        <Button type="submit" variantColor="blue" size="lg" fontSize="md" ml={"auto"} isLoading={isSubmitting} >
-                            Login
-                        </Button>
+                            <Button type="submit" size="lg" fontSize="md" isLoading={isSubmitting}
+                                variantColor="blue">
+                                Login
+                            </Button>
+                        </Stack>
                     </Form>
                 )}
             </Formik>
+            <OAuth rl={"login"} />
         </Wrapper>
     );
 };

@@ -2,9 +2,14 @@ import React from "react";
 import { Formik, Form } from "formik";
 import
 {
+  Box,
   Button,
+  Divider,
+  Flex,
   Heading,
+  SimpleGrid,
   Stack,
+  VisuallyHidden,
 } from "@chakra-ui/core";
 import { Wrapper } from "../components/Wrapper";
 import { InputField } from "../components/InputField";
@@ -12,7 +17,9 @@ import { useRegisterMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
 import { useRouter } from "next/router";
 import { CMode } from "../components/CMode";
-import { SimplGrid } from "../components/SimplGrid";
+import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa";
+import { Text, useColorModeValue } from '@chakra-ui/react'
+import { OAuth } from "../components/OAuth";
 
 interface registerProps { }
 
@@ -62,6 +69,7 @@ const Register: React.FC<registerProps> = ({ }) =>
           </>
         )}
       </Formik>
+      <OAuth rl={"register"} />
     </Wrapper>
   );
 };
