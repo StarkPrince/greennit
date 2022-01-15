@@ -3,10 +3,15 @@ import theme from '../theme'
 import { Provider } from 'urql'
 import { createClient } from '@urql/core'
 
-const client = createClient({ url: 'http://localhost:4000/graphql' })
+const client = createClient({
+  url: 'http://localhost:4000/graphql',
+  fetchOptions: {
+    credentials: 'include'
+  }
+})
 
 
-function MyApp({ Component, pageProps })
+function MyApp({ Component, pageProps }: any)
 {
   return (
     <Provider value={client}>
