@@ -17,6 +17,7 @@
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^10.0.27",
     "@popperjs/core": "^2.11.2",
+    "@urql/exchange-graphcache": "^4.3.6",
     "emotion-theming": "^10.0.27",
     "formik": "^2.1.5",
     "graphql": "^16.2.0",
