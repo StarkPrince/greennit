@@ -1,12 +1,13 @@
 import React from "react";
-import { Box, Flex, Link } from "@chakra-ui/core";
+import { Box, Button, Flex, Link } from "@chakra-ui/core";
 import NextLink from "next/link";
-import { useMeQuery } from "../generated/graphql";
+import { useLogoutMutation, useMeQuery } from "../generated/graphql";
 import { CMode } from "./CMode";
 interface NavbarProps { }
 
 export const Navbar: React.FC<NavbarProps> = ({ }) =>
 {
+    const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
     const [{ data, fetching }] = useMeQuery();
     let body = null;
     if (fetching) {
@@ -15,41 +16,35 @@ export const Navbar: React.FC<NavbarProps> = ({ }) =>
     else if (!data?.me) {
         body = (
             <>
-                <Box mr={8}>
-                    <CMode />
-                </Box>
-                <Box mr={8}>
-                    <NextLink href="/register">
-                        <Link ml={8} color="brown">Register</Link>
-                    </NextLink>
-                </Box>
-                <Box mr={8}>
-                    <NextLink href="/login">
-                        <Link ml={8} color="brown">Login</Link>
-                    </NextLink>
-                </Box >
+                <CMode />
+                <NextLink href="/register">
+                    <Button ml={6}>
+                        Register
+                    </Button>
+                </NextLink>
+                <NextLink href="/login">
+                    <Button ml={6} mr={3}>
+                        Login
+                    </Button >
+                </NextLink>
             </>
         )
     }
     else {
         body = (
-            <Flex>
-                <Box mr={8}>
-                    <CMode />
-                </Box>
-                <Box mr={8}>
-                    <NextLink href="/profile">
-                        <Link>{data.me.username}</Link>
-                    </NextLink>
-                </Box>
-                <Box mr={8}>
-                    <Link onClick={() =>
-                    {
-                        localStorage.removeItem('token');
-                    }}>Logout</Link>
-                </Box>
+            <>
+                <CMode />
+                <NextLink href="/profile">
+                    <Link ml={6}>{data.me.username}</Link>
+                </NextLink>
+                <Button ml={6} mr={3} isLoading={logoutFetching} onClick={() =>
+                {
+                    logout();
+                }}>
+                    Logout
+                </Button>
 
-            </Flex>
+            </>
         )
     }
     return (

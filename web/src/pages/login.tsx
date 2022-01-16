@@ -8,6 +8,8 @@ import { toErrorMap } from "../utils/toErrorMap";
 import { useRouter } from "next/router";
 import { CMode } from "../components/CMode";
 import { OAuth } from "../components/OAuth";
+import { withUrqlClient } from "next-urql";
+import { createUrqlClient } from "../utils/createUrqlClient";
 
 interface loginProps { }
 
@@ -60,4 +62,4 @@ const Login: React.FC<loginProps> = ({ }) =>
     );
 };
 
-export default Login;
+export default withUrqlClient(createUrqlClient)(Login);
