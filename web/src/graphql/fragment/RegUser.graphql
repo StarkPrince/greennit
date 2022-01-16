@@ -1,0 +1,8 @@
+fragment RegUser on User {
+  id
+  username
+  #   name
+  #   email
+  createdAt
+  updatedAt
+}
