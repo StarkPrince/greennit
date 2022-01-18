@@ -49,6 +49,7 @@
     "pg": "^8.3.0",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.0.0-rc.3",
+    "typeorm": "^0.2.41",
     "urql": "^2.0.6",
     "uuid": "^8.3.2",
     "yarn.lock": "^0.0.1-security"

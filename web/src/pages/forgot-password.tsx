@@ -34,17 +34,16 @@ const ForgotPassword = () =>
                                 label="Email"
                                 type="email"
                             />
-                            <Button type="submit" size="lg" fontSize="md" isLoading={isSubmitting}
-                                variantColor="blue">
-                                Send
-                            </Button>
-                            {sent && (
-                                <>
-                                    <Alert status='success'>
-                                        <AlertIcon />
-                                        Reset Link sent :&#41;
-                                    </Alert>
-                                </>
+                            {sent === true ? (
+                                <Alert status='success'>
+                                    <AlertIcon />
+                                    Reset Link sent :&#41;
+                                </Alert>
+                            ) : (
+                                <Button type="submit" size="lg" fontSize="md" isLoading={isSubmitting}
+                                    variantColor="blue">
+                                    Send
+                                </Button>
                             )}
                         </Stack>
                     </Form>
