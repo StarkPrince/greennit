@@ -5,23 +5,25 @@ export const validateRegister = (options: UsernamePasswordInput) => {
     return [
       {
         field: "email",
-        message: "invald email",
+        message: "invalid email",
       },
     ];
   }
-  if (options.username.includes("@")) {
-    return [
-      {
-        field: "username",
-        message: "cannot include @",
-      },
-    ];
-  }
+
   if (options.username.length <= 2) {
     return [
       {
         field: "username",
-        message: "username length must be greater than 2",
+        message: "length must be greater than 2",
+      },
+    ];
+  }
+
+  if (options.username.includes("@")) {
+    return [
+      {
+        field: "username",
+        message: "cannot include an @",
       },
     ];
   }
@@ -34,5 +36,6 @@ export const validateRegister = (options: UsernamePasswordInput) => {
       },
     ];
   }
+
   return null;
 };

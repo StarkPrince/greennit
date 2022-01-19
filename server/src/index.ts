@@ -56,6 +56,7 @@ const main = async () => {
       resave: false,
     })
   );
+  // app.use(cookieParser());
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({

@@ -1,22 +1,22 @@
-import { MyContext } from "../types";
 import {
   Resolver,
   Query,
   Arg,
   Mutation,
-  Field,
   InputType,
+  Field,
   Ctx,
   UseMiddleware,
+  ObjectType,
 } from "type-graphql";
 import { Post } from "../entities/Post";
+import { MyContext } from "../types";
 import { isAuth } from "../middleware/isAuth";
 
 @InputType()
 class PostInput {
   @Field()
   title: string;
-
   @Field()
   text: string;
 }
@@ -39,7 +39,7 @@ export class PostResolver {
     @Arg("input") input: PostInput,
     @Ctx() { req }: MyContext
   ): Promise<Post> {
-    const post = await Post.create({
+    let post = await Post.create({
       ...input,
       creatorId: req.session.userId,
     }).save();
@@ -51,15 +51,6 @@ export class PostResolver {
     @Arg("id") id: number,
     @Arg("title", () => String, { nullable: true }) title: string
   ): Promise<Post | null> {
-    // const post = await em.findOne(Post, { id });
-    // if (!post) {
-    //   return null;
-    // }
-    // if (typeof title !== "undefined") {
-    //   post.title = title;
-    //   await em.persistAndFlush(post);
-    // }
-    // return post;
     const post = await Post.findOne(id);
     if (!post) {
       return null;
