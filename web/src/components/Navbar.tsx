@@ -52,7 +52,7 @@ export const Navbar: React.FC<NavbarProps> = ({ }) =>
     }
     return (
         // create a beautiful navbar
-        <Flex p={4}>
+        <Flex p={4} background="dark.700">
             <Box>
                 <NextLink href="/">
                     <Link ml={3} color="brown">Home</Link>

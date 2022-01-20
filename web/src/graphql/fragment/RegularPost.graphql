@@ -1,0 +1,9 @@
+fragment RegularPost on Post {
+  id
+  createdAt
+  creatorId
+  points
+  updatedAt
+  text
+  title
+}

@@ -36,6 +36,11 @@ class UserResponse {
 
 @Resolver()
 export class UserResolver {
+  @Query(() => [User])
+  async users(): Promise<User[]> {
+    return User.find();
+  }
+
   @Mutation(() => UserResponse)
   async changePassword(
     @Arg("token") token: string,
