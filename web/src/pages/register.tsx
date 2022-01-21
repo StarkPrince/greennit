@@ -1,25 +1,16 @@
-import React from "react";
-import { Formik, Form } from "formik";
 import
 {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Heading,
-  SimpleGrid,
-  Stack,
-  VisuallyHidden,
+  Button, Heading, Stack
 } from "@chakra-ui/core";
-import { Wrapper } from "../components/Wrapper";
+import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
+import React from "react";
+import { CMode } from "../components/CMode";
 import { InputField } from "../components/InputField";
+import { OAuth } from "../components/OAuth";
+import { Wrapper } from "../components/Wrapper";
 import { useRegisterMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
-import { useRouter } from "next/router";
-import { CMode } from "../components/CMode";
-import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa";
-import { Text, useColorModeValue } from '@chakra-ui/react'
-import { OAuth } from "../components/OAuth";
 
 interface registerProps { }
 

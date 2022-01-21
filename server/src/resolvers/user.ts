@@ -41,6 +41,11 @@ export class UserResolver {
     return User.find();
   }
 
+  @Query(() => User, { nullable: true })
+  user(@Arg("id") id: number): Promise<User | undefined> {
+    return User.findOne(id);
+  }
+
   @Mutation(() => UserResponse)
   async changePassword(
     @Arg("token") token: string,
