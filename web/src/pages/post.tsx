@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
-import { Badge, Button, Flex } from "@chakra-ui/core";
-import { TriangleUpIcon, TriangleDownIcon } from "@chakra-ui/icons";
+import { Badge, Button, Flex, Heading } from "@chakra-ui/core";
+import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import { Box } from "@chakra-ui/layout";
-import { useDeletePostMutation, useUserQuery } from "../generated/graphql";
-import { Form } from "formik";
-import { OperationContext } from "@urql/core";
+import React from "react";
+import { useDeletePostMutation } from "../generated/graphql";
 
 interface WrapperProps
 {
@@ -24,10 +22,8 @@ interface WrapperProps
 export const Post: React.FC<WrapperProps> = ({ post }) =>
 {
     const [, deletePost] = useDeletePostMutation();
-
-
-    return (
-        <Box maxW='sm' p={4} mt={12} borderWidth='1px' borderRadius='lg' overflow='hidden' >
+    return (<>
+        <Box p={1} shadow="dark-lg" borderWidth='1px' maxW='sm' mt={12} borderRadius='lg' overflow='hidden' >
             <Box p='6'>
                 <Flex p="auto" m={2}>
                     <Box centerContent mr={6}>
@@ -42,26 +38,21 @@ export const Post: React.FC<WrapperProps> = ({ post }) =>
                         </Box>
                     </Box>
                     <Box pl={4} m={3}>
-                        <Box
-                            fontWeight='bold'
-                            lineHeight='tight'
-                            isTruncated
-                            fontSize='large'
-                        >
+                        <Heading fontSize='xl'>
                             {post.title}
-                        </Box>
+                        </Heading>
                         <Box
                             fontWeight='light'
                             letterSpacing='wide'
-                            mb="2"
+                            mb="4"
                         >
                             <Badge borderRadius='full' px='2'>
-                                {/* Posted by {data?.user.username} */}
+                                Posted by {post.creator.username}
                             </Badge>
                         </Box>
                         <Box md="6">
                             {/* <Image src={property.imageUrl} alt={property.imageAlt} /> */}
-                            {post.text}
+                            {post.text.slice(0, 500) + "..."}
                             {/* <Box as='span' color='gray.600' fontSize='sm'>
                                 / wk
                             </Box> */}
@@ -87,5 +78,6 @@ export const Post: React.FC<WrapperProps> = ({ post }) =>
                         </Box> */}
             </Box>
         </Box>
+    </>
     );
 };

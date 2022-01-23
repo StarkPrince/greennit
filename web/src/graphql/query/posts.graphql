@@ -1,5 +1,15 @@
-query Posts {
-  posts {
-    ...RegularPost
+query Posts($limit: Int!, $cursor: String) {
+  posts(limit: $limit, cursor: $cursor) {
+    hasMore
+    posts {
+      ...RegularPost
+      creator {
+        id
+        username
+        email
+        createdAt
+        updatedAt
+      }
+    }
   }
 }
