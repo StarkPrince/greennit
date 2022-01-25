@@ -8,7 +8,7 @@ interface NavbarProps { }
 
 export const Navbar: React.FC<NavbarProps> = ({ }) =>
 {
-    const { colorMode, toggleColorMode } = useColorMode();
+    const { colorMode } = useColorMode();
     const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
     const [{ data, fetching }] = useMeQuery({
         pause: isServer(),
@@ -47,7 +47,7 @@ export const Navbar: React.FC<NavbarProps> = ({ }) =>
     }
     return (
         // create a beautiful navbar
-        <Flex p={2} backgroundColor={colorMode === "light" ? "white" : "black"} top={0}>
+        <Flex zIndex={1} position="sticky" p={2} backgroundColor={colorMode === "light" ? "white" : "black"} top={0}>
             <Flex>
                 <Box mr={8} my="auto">
                     <NextLink href="/">

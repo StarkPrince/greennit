@@ -6,6 +6,8 @@ import {
   Ctx,
   ObjectType,
   Query,
+  FieldResolver,
+  Root,
 } from "type-graphql";
 import { MyContext } from "../types";
 import { User } from "../entities/User";
@@ -34,8 +36,15 @@ class UserResponse {
   user?: User;
 }
 
-@Resolver()
+@Resolver(User)
 export class UserResolver {
+  @FieldResolver(() => String)
+  email(@Root() user: User, @Ctx() { req }: MyContext) {
+    if (req.session.userId === user.id) {
+      return user.email;
+    }
+    return "";
+  }
   @Query(() => [User])
   async users(): Promise<User[]> {
     return User.find();
@@ -46,6 +55,7 @@ export class UserResolver {
     return User.findOne(id);
   }
 
+  // NOTEIT: password verification, token management,redis key management, token expiry in 3 days and email verification
   @Mutation(() => UserResponse)
   async changePassword(
     @Arg("token") token: string,
@@ -105,6 +115,7 @@ export class UserResolver {
     return { user };
   }
 
+  // NOTEIT: using uuid and send a token to the user's email
   @Mutation(() => Boolean)
   async forgotPassword(
     @Arg("email") email: string,
@@ -133,6 +144,7 @@ export class UserResolver {
     return true;
   }
 
+  // NOTEIT: meQuery to fetch the current user from the session
   @Query(() => User, { nullable: true })
   me(@Ctx() { req }: MyContext) {
     // you are not logged in
@@ -143,6 +155,7 @@ export class UserResolver {
     return User.findOne(req.session.userId);
   }
 
+  // NOTEIT: error management during registration with nice error field in UI, hashing password with argon2 with custom user password input field
   @Mutation(() => UserResponse)
   async register(
     @Arg("options") options: UsernamePasswordInput,
@@ -186,6 +199,7 @@ export class UserResolver {
     return { user };
   }
 
+  // NOTEIT: fetching with username and email to login and setting the session in the context
   @Mutation(() => UserResponse)
   async login(
     @Arg("usernameOrEmail") usernameOrEmail: string,

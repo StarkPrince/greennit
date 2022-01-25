@@ -31,6 +31,7 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   register: UserResponse;
   updatePost?: Maybe<Post>;
+  vote: Scalars['Boolean'];
 };
 
 
@@ -71,6 +72,12 @@ export type MutationUpdatePostArgs = {
   title?: InputMaybe<Scalars['String']>;
 };
 
+
+export type MutationVoteArgs = {
+  postId: Scalars['Int'];
+  value: Scalars['Int'];
+};
+
 export type PaginatedPosts = {
   __typename?: 'PaginatedPosts';
   hasMore: Scalars['Boolean'];
@@ -87,6 +94,7 @@ export type Post = {
   text: Scalars['String'];
   title: Scalars['String'];
   updatedAt: Scalars['String'];
+  voteStatus?: Maybe<Scalars['Int']>;
 };
 
 export type PostInput = {
@@ -143,7 +151,7 @@ export type UsernamePasswordInput = {
 
 export type RegularErrorFragment = { __typename?: 'FieldError', field: string, message: string };
 
-export type RegularPostFragment = { __typename?: 'Post', id: number, createdAt: string, creatorId: number, points: number, updatedAt: string, text: string, title: string };
+export type RegularPostFragment = { __typename?: 'Post', id: number, createdAt: string, creatorId: number, points: number, updatedAt: string, text: string, title: string, voteStatus?: number | null | undefined };
 
 export type RegularUserFragment = { __typename?: 'User', id: number, username: string, email: string, createdAt: string, updatedAt: string };
 
@@ -162,7 +170,7 @@ export type CreatePostMutationVariables = Exact<{
 }>;
 
 
-export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', id: number, createdAt: string, creatorId: number, points: number, updatedAt: string, text: string, title: string } };
+export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', id: number, createdAt: string, creatorId: number, points: number, updatedAt: string, text: string, title: string, voteStatus?: number | null | undefined } };
 
 export type DeletePostMutationVariables = Exact<{
   id: Scalars['Float'];
@@ -198,6 +206,14 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'User', id: number, username: string, email: string, createdAt: string, updatedAt: string } | null | undefined } };
 
+export type VotePostMutationVariables = Exact<{
+  postId: Scalars['Int'];
+  value: Scalars['Int'];
+}>;
+
+
+export type VotePostMutation = { __typename?: 'Mutation', vote: boolean };
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -208,7 +224,7 @@ export type PostQueryVariables = Exact<{
 }>;
 
 
-export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: number, createdAt: string, creatorId: number, points: number, updatedAt: string, text: string, title: string } | null | undefined };
+export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: number, createdAt: string, creatorId: number, points: number, updatedAt: string, text: string, title: string, voteStatus?: number | null | undefined } | null | undefined };
 
 export type PostsQueryVariables = Exact<{
   limit: Scalars['Int'];
@@ -216,7 +232,7 @@ export type PostsQueryVariables = Exact<{
 }>;
 
 
-export type PostsQuery = { __typename?: 'Query', posts: { __typename?: 'PaginatedPosts', hasMore: boolean, posts: Array<{ __typename?: 'Post', id: number, createdAt: string, creatorId: number, points: number, updatedAt: string, text: string, title: string, creator: { __typename?: 'User', id: number, username: string, email: string, createdAt: string, updatedAt: string } }> } };
+export type PostsQuery = { __typename?: 'Query', posts: { __typename?: 'PaginatedPosts', hasMore: boolean, posts: Array<{ __typename?: 'Post', id: number, createdAt: string, creatorId: number, points: number, updatedAt: string, text: string, title: string, voteStatus?: number | null | undefined, creator: { __typename?: 'User', id: number, username: string, email: string, createdAt: string, updatedAt: string } }> } };
 
 export type UserQueryVariables = Exact<{
   id: Scalars['Float'];
@@ -239,6 +255,7 @@ export const RegularPostFragmentDoc = gql`
   updatedAt
   text
   title
+  voteStatus
 }
     `;
 export const RegularErrorFragmentDoc = gql`
@@ -337,6 +354,15 @@ export const RegisterDocument = gql`
 
 export function useRegisterMutation() {
   return Urql.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument);
+};
+export const VotePostDocument = gql`
+    mutation VotePost($postId: Int!, $value: Int!) {
+  vote(postId: $postId, value: $value)
+}
+    `;
+
+export function useVotePostMutation() {
+  return Urql.useMutation<VotePostMutation, VotePostMutationVariables>(VotePostDocument);
 };
 export const MeDocument = gql`
     query Me {

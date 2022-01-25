@@ -7,6 +7,7 @@ import {
 } from "urql";
 import { pipe, tap } from "wonka";
 import {
+  CreatePostMutation,
   LoginMutation,
   LogoutMutation,
   MeDocument,
@@ -80,6 +81,27 @@ export const createUrqlClient = (ssrExchange: any) => ({
       },
       updates: {
         Mutation: {
+          createPost: (_result, args, cache, info) => {
+            cache.invalidate({
+              __typename: "Query",
+              posts: true,
+            });
+          },
+          vote: (_result, args, cache, info) => {
+            const { postId, value } = args;
+            console.log(postId, value);
+            // console.log("---before---");
+            // console.log(cache.inspectFields("Query"));
+            // console.log(cache.inspectFields("Mutation"));
+            // refresh that specific post
+            // cache.invalidate({
+            //   __typename: "Query",
+            //   post: postId as unknown as string,
+            // });
+            // console.log("---after---");
+            // console.log(cache.inspectFields("Query"));
+            // console.log(cache.inspectFields("Mutation"));
+          },
           logout: (_result, args, cache, info) => {
             betterUpdateQuery<LogoutMutation, MeQuery>(
               cache,

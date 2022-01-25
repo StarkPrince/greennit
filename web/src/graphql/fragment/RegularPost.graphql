@@ -6,4 +6,5 @@ fragment RegularPost on Post {
   updatedAt
   text
   title
+  voteStatus
 }

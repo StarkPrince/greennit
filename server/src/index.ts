@@ -14,6 +14,7 @@ import { createConnection } from "typeorm";
 import { Post } from "./entities/Post";
 import { User } from "./entities/User";
 import dotenv from "dotenv";
+import { Upvote } from "./entities/Upvote";
 dotenv.config();
 
 const main = async () => {
@@ -24,7 +25,7 @@ const main = async () => {
     password: process.env.PG_PASS,
     logging: true,
     synchronize: true,
-    entities: [Post, User],
+    entities: [Post, User, Upvote],
   });
   conn.runMigrations();
 
