@@ -23,7 +23,7 @@ const main = async () => {
     database: "saffronnit",
     username: "postgres",
     password: process.env.PG_PASS,
-    logging: true,
+    logging: false,
     synchronize: true,
     entities: [Post, User, Upvote],
   });
@@ -64,7 +64,10 @@ const main = async () => {
       resolvers: [HelloResolver, PostResolver, UserResolver],
       validate: false,
     }),
-    context: ({ req, res }) => ({ req, res, redis }),
+    context: async ({ req, res }) => {
+      console.log("logged in index file", req.session);
+      return { req, res, redis };
+    },
   });
 
   apolloServer.applyMiddleware({

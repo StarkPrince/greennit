@@ -89,7 +89,6 @@ export const createUrqlClient = (ssrExchange: any) => ({
           },
           vote: (_result, args, cache, info) => {
             const { postId, value } = args;
-            console.log(postId, value);
             // console.log("---before---");
             // console.log(cache.inspectFields("Query"));
             // console.log(cache.inspectFields("Mutation"));

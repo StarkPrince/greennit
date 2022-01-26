@@ -40,7 +40,6 @@ const Index = () =>
                 </Flex>
             </NextLink>
             {!data && <div>loading...</div>}
-            {console.log(data.posts.bonus)}
             {data && data.posts.posts.map((post) =>
             (<div key={post.id}>
                 <Post post={post} notify={notify} />

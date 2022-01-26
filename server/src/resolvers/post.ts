@@ -108,7 +108,7 @@ export class PostResolver {
   async posts(
     @Arg("limit", () => Int) limit: number,
     @Arg("cursor", () => String, { nullable: true }) cursor: string | null,
-    @Ctx() { req }: MyContext
+    @Ctx() req: MyContext
   ): Promise<PaginatedPosts> {
     const realLimit = Math.min(50, limit);
     const posts = await Post.find({
@@ -120,16 +120,17 @@ export class PostResolver {
         createdAt: LessThan(new Date()),
       },
     });
-    let updatedPosts = [];
-    for (let i = 0; i < posts.length; i++) {
-      const post = posts[i];
-      console.log(post.id, req.session.userId);
-      const upvote = await Upvote.findOne({
-        where: { postId: post.id, userId: req.session.userId },
-      });
-      post.voteStatus = upvote ? upvote.value : 0;
-      updatedPosts.push(post);
-    }
+    console.log("logged in post resolver file", req.session);
+    // let updatedPosts = [];
+    // for (let i = 0; i < posts.length; i++) {
+    //   const post = posts[i];
+    //   console.log(post.id, req.session.userId);
+    //   const upvote = await Upvote.findOne({
+    //     where: { postId: post.id, userId: req.session.userId },
+    //   });
+    //   post.voteStatus = upvote ? upvote.value : 0;
+    //   updatedPosts.push(post);
+    // }
     return {
       posts: posts.slice(0, realLimit),
       hasMore: posts.length === realLimit + 1,
